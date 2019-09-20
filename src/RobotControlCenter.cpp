@@ -60,29 +60,29 @@ void RobotControlCenter::setup() {
 	robot = new StudentsRobot(&motor1, &motor2, &motor3, &servo);
 
 
-#if defined(USE_WIFI)
-	// Attach coms
-	//coms.attach(new NameCheckerServer(name)); // @suppress("Method cannot be resolved")
-	coms.attach(new SetPIDSetpoint(numberOfPID, pidList)); // @suppress("Method cannot be resolved")
-	coms.attach(new SetPIDConstants(numberOfPID, pidList)); // @suppress("Method cannot be resolved")
-	coms.attach(new GetPIDData(numberOfPID, pidList)); // @suppress("Method cannot be resolved")
-	coms.attach( // @suppress("Method cannot be resolved")
-			new GetPIDConstants(numberOfPID, pidList));
-	coms.attach(new GetPIDVelocity(numberOfPID, pidList));
-	coms.attach(new GetPDVelocityConstants(numberOfPID, pidList));
-	coms.attach(new SetPIDVelocity(numberOfPID, pidList));
-	coms.attach(new SetPDVelocityConstants(numberOfPID, pidList));
 
-	coms.attach(new EStop(robot)); // @suppress("Method cannot be resolved")
+	// Attach coms
+	//coms.attach(new NameCheckerServer(name)); // @suppress("Method cannot be resolved")  @suppress("Invalid arguments")
+	coms.attach(new SetPIDSetpoint(numberOfPID, pidList)); // @suppress("Method cannot be resolved")  @suppress("Invalid arguments")
+	coms.attach(new SetPIDConstants(numberOfPID, pidList)); // @suppress("Method cannot be resolved")  @suppress("Invalid arguments")
+	coms.attach(new GetPIDData(numberOfPID, pidList)); // @suppress("Method cannot be resolved")  @suppress("Invalid arguments")
+	coms.attach( // @suppress("Method cannot be resolved")  @suppress("Invalid arguments")
+			new GetPIDConstants(numberOfPID, pidList));// @suppress("Invalid arguments")
+	coms.attach(new GetPIDVelocity(numberOfPID, pidList));// @suppress("Invalid arguments")
+	coms.attach(new GetPDVelocityConstants(numberOfPID, pidList));// @suppress("Invalid arguments")
+	coms.attach(new SetPIDVelocity(numberOfPID, pidList));// @suppress("Invalid arguments")
+	coms.attach(new SetPDVelocityConstants(numberOfPID, pidList));//  @suppress("Invalid arguments")
+
+	coms.attach(new EStop(robot)); // @suppress("Method cannot be resolved") @suppress("Invalid arguments")
 	// clear any fault command
-	coms.attach(new ClearFaults(robot));// @suppress("Method cannot be resolved")
+	coms.attach(new ClearFaults(robot));// @suppress("Method cannot be resolved") @suppress("Invalid arguments")
 	// Pick up an panel command
-	coms.attach(new PickOrder(robot));// @suppress("Method cannot be resolved")
+	coms.attach(new PickOrder(robot));// @suppress("Method cannot be resolved") @suppress("Invalid arguments")
 	// Get the status of the robot
-	coms.attach(new GetStatus(robot));// @suppress("Method cannot be resolved")
+	coms.attach(new GetStatus(robot));// @suppress("Method cannot be resolved")  @suppress("Invalid arguments")
 	// Approve a procede command from the controller
-	coms.attach(new Approve(robot));// @suppress("Method cannot be resolved")
-#endif
+	coms.attach(new Approve(robot));// @suppress("Method cannot be resolved")  @suppress("Invalid arguments")
+
 
 }
 
