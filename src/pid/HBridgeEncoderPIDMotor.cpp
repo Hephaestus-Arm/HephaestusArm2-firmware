@@ -28,7 +28,7 @@ HBridgeEncoderPIDMotor::~HBridgeEncoderPIDMotor() {
 void HBridgeEncoderPIDMotor::attach(int pwmPin, int directionPin, int encoderA,
 		int encoderB) {
 	encoder= new Encoder(encoderA, encoderB);
-	analogWriteResolution(8);
+	//analogWriteResolution(8);
 	this->directionPin = directionPin;
 	analogWriteFrequency(pwmPin, 20000);
 	this->pwmPin=pwmPin;
