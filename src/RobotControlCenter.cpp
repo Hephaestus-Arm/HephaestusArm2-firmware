@@ -8,8 +8,8 @@
 #include "RobotControlCenter.h"
 
 void RobotControlCenter::loop() {
-	if (esp_timer_get_time() - lastPrint > 500
-			|| esp_timer_get_time() < lastPrint // check for the wrap over case
+	if (micros() - lastPrint > 500
+			|| micros() < lastPrint // check for the wrap over case
 					) {
 		switch (state) {
 		case Startup:
@@ -17,15 +17,12 @@ void RobotControlCenter::loop() {
 			state = WaitForConnect;
 			break;
 		case WaitForConnect:
-#if defined(USE_WIFI)
-			if (manager.getState() == Connected)
-#endif
 				state = run; // begin the main operation loop
 			break;
 		default:
 			break;
 		}
-		lastPrint = esp_timer_get_time(); // ensure 0.5 ms spacing *between* reads for Wifi to transact
+		lastPrint = micros(); // ensure 0.5 ms spacing *between* reads for Wifi to transact
 	}
 	if (state != Startup) {
 		// If this is run before the sensor reads, the I2C will fail because the time it takes to send the UDP causes a timeout
@@ -47,11 +44,7 @@ void RobotControlCenter::setup() {
 	if (state != Startup)
 		return;
 	state = WaitForConnect;
-#if defined(USE_WIFI)
-	manager.setup();
-#else
 	Serial.begin(115200);
-#endif
 
 	motor1.attach(MOTOR1_PWM, MOTOR1_DIR, MOTOR1_ENCA, MOTOR1_ENCB);
 	motor2.attach(MOTOR2_PWM, MOTOR2_DIR, MOTOR2_ENCA, MOTOR2_ENCB);
@@ -62,14 +55,14 @@ void RobotControlCenter::setup() {
 	motor3.setSetpoint(motor3.getPosition());
 
 	// Set up digital servo for the gripper
-	servo.setPeriodHertz(50);
+	//servo.setPeriodHertz(50);
 	servo.attach(SERVO_PIN, 1000, 2000);
 	robot = new StudentsRobot(&motor1, &motor2, &motor3, &servo);
 
 
 #if defined(USE_WIFI)
 	// Attach coms
-	coms.attach(new NameCheckerServer(name)); // @suppress("Method cannot be resolved")
+	//coms.attach(new NameCheckerServer(name)); // @suppress("Method cannot be resolved")
 	coms.attach(new SetPIDSetpoint(numberOfPID, pidList)); // @suppress("Method cannot be resolved")
 	coms.attach(new SetPIDConstants(numberOfPID, pidList)); // @suppress("Method cannot be resolved")
 	coms.attach(new GetPIDData(numberOfPID, pidList)); // @suppress("Method cannot be resolved")
@@ -96,14 +89,7 @@ void RobotControlCenter::setup() {
 void RobotControlCenter::fastLoop() {
 	if (state == Startup)    // Do not run before startp
 		return;
-#if defined(USE_WIFI)
-	manager.loop();
-	if (manager.getState() == Connected)
-		coms.server(); // @suppress("Method cannot be resolved")
-	else {
-		return;
-	}
-#endif
+	coms.server(); // @suppress("Method cannot be resolved")
 	robot->pidLoop();
 	robot->updateStateMachine();
 

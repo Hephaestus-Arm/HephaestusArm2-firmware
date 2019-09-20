@@ -12,19 +12,11 @@
 #include <Arduino.h>
 #endif
 #include "../config.h"
-#include <ESP32Servo.h>
-#include <ESP32Encoder.h>
 #include "../RBEPID.h"
 #include "pid/PIDMotor.h"
-#include "pid/ServoEncoderPIDMotor.h"
 #include "pid/HBridgeEncoderPIDMotor.h"
-#include "pid/ServoAnalogPIDMotor.h"
-#include <Preferences.h>
-#include <WiFi.h>
 #include <SimplePacketComs.h>
-#include <Esp32SimplePacketComs.h>
-#include <wifi/WifiManager.h>
-#include <server/NameCheckerServer.h>
+#include <TeensySimplePacketComs.h>
 #include "commands/GetPIDConstants.h"
 #include "commands/GetPIDData.h"
 #include "commands/SetPIDConstants.h"
@@ -69,9 +61,7 @@ private:
 
 #if defined(USE_WIFI)
 	// SImple packet coms implementation useing WiFi
-	UDPSimplePacket coms;
-	// WIfi stack managment state machine
-	WifiManager manager;
+	HIDSimplePacket coms;
 
 #endif
 
@@ -107,7 +97,7 @@ protected:
 	HBridgeEncoderPIDMotor motor2; // PID controlled motor object
 	HBridgeEncoderPIDMotor motor3; // PID controlled motor object
 	// Servo objects
-	Servo servo;
+	PWMServo servo;
 
 	//
 	/**

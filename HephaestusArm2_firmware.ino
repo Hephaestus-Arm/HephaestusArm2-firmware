@@ -1,7 +1,8 @@
 /**@file template.ino */
-
+#include <Encoder.h>
+#include <PWMServo.h>
 #include <SimplePacketComs.h>
-#include <server/NameCheckerServer.h>
+#include <TeensySimplePacketComs.h>
 
 #include "src/RobotControlCenter.h"
 #include "config.h"

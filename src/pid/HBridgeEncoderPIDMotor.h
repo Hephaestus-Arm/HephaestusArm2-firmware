@@ -10,11 +10,10 @@
 #define HBRIDGE_DEADBAND 138
 #define HBRIDGE_MAX 255
 #include "PIDMotor.h"
-#include <ESP32Servo.h>
-#include <ESP32Encoder.h>
+#include <Encoder.h>
 class HBridgeEncoderPIDMotor: public PIDMotor {
 private:
-
+	int pwmPin;
 	int directionPin;
 public:
 	HBridgeEncoderPIDMotor();
@@ -31,8 +30,7 @@ public:
 	int64_t getPosition();
 	void setOutput(int32_t out);
 	void overrideCurrentPositionHardware(int64_t val);
-	ESP32Encoder encoder;
-	ESP32PWM motor;
+	Encoder * encoder;
 	//This function should analogRead the current sense from the motor driver
 	//and convert the value to current in milliamps
 	double calcCur(void);

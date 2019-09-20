@@ -12,7 +12,7 @@
 
 StudentsRobot::StudentsRobot(PIDMotor * motor1,
 		PIDMotor * motor2, PIDMotor * motor3,
-		Servo * servo) {
+		PWMServo * servo) {
 	Serial.println("StudentsRobot::StudentsRobot constructor called here ");
 	this->servo = servo;
 	this->motor1 = motor1;
@@ -74,8 +74,8 @@ StudentsRobot::StudentsRobot(PIDMotor * motor1,
 			50 // the speed in degrees per second that the motor spins when the hardware output is at creep forwards
 			);
 	// Set up the line tracker
-	pinMode(ANALOG_SENSE_ONE, ANALOG);
-	pinMode(ANALOG_SENSE_TWO, ANALOG);
+	//pinMode(ANALOG_SENSE_ONE, ANALOG);
+	//pinMode(ANALOG_SENSE_TWO, ANALOG);
 	pinMode(H_BRIDGE_ENABLE, OUTPUT);
 }
 /**
