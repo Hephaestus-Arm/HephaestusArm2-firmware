@@ -30,3 +30,15 @@
 *.exe
 *.out
 *.app
+
+.metadata
+core/
+libraries/
+sloeber.ino.cpp
+bin/
+tmp/
+Release/
+local.properties
+.settings/
+.project
+.cproject
