@@ -73,16 +73,6 @@ void RobotControlCenter::setup() {
 	coms.attach(new SetPIDVelocity(numberOfPID, pidList));// @suppress("Invalid arguments")
 	coms.attach(new SetPDVelocityConstants(numberOfPID, pidList));//  @suppress("Invalid arguments")
 
-	coms.attach(new EStop(robot)); // @suppress("Method cannot be resolved") @suppress("Invalid arguments")
-	// clear any fault command
-	coms.attach(new ClearFaults(robot));// @suppress("Method cannot be resolved") @suppress("Invalid arguments")
-	// Pick up an panel command
-	coms.attach(new PickOrder(robot));// @suppress("Method cannot be resolved") @suppress("Invalid arguments")
-	// Get the status of the robot
-	coms.attach(new GetStatus(robot));// @suppress("Method cannot be resolved")  @suppress("Invalid arguments")
-	// Approve a procede command from the controller
-	coms.attach(new Approve(robot));// @suppress("Method cannot be resolved")  @suppress("Invalid arguments")
-
 
 }
 
