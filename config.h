@@ -49,14 +49,14 @@
 #define MOTOR3_DIR 26
 
 //Encoder pins
-#define MOTOR1_ENCA 19
-#define MOTOR1_ENCB 18
+#define MOTOR1_ENCA 19 // White
+#define MOTOR1_ENCB 18 // Yellow
 
-#define MOTOR2_ENCA 17
-#define MOTOR2_ENCB 16
+#define MOTOR2_ENCA 17 // White
+#define MOTOR2_ENCB 16 // Yellow
 
-#define MOTOR3_ENCB 25
-#define MOTOR3_ENCA 12
+#define MOTOR3_ENCB 25 // White
+#define MOTOR3_ENCA 12 // Yellow
 
 //Stepper
 #define STEPPER_DIRECTION 33
