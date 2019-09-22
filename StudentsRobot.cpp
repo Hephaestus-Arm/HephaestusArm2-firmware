@@ -111,10 +111,6 @@ void StudentsRobot::updateStateMachine() {
 		// After 1000 ms, come back to this state
 		nextStatus = Running;
 
-		// Do something
-		if (!digitalRead(0))
-			Serial.println(
-					" Running State Machine " + String((now - startTime)));
 		break;
 	case sample_pid:
 		status = WAIT_FOR_TIME;

@@ -24,7 +24,7 @@ void SetPIDVelocity::event(float * buffer) {
 		float val = buffer[i];
 		if(val==0)
 			continue;
-		Serial.println("Set Velocity "+String(i)+" to "+String(val));
+//		Serial.println("Set Velocity "+String(i)+" to "+String(val));
 		pidlist[i]->setVelocityDegreesPerSecond(val);
 	}
 
