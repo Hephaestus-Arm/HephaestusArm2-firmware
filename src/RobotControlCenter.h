@@ -55,11 +55,10 @@ private:
 	// List of PID objects to use with PID server
 	PIDMotor * pidList[numberOfPID];	// = { &motor1.myPID, &motor2.myPID };
 
-#if defined(USE_WIFI)
+
 	// SImple packet coms implementation useing WiFi
 	HIDSimplePacket coms;
 
-#endif
 
 	//attach the PID servers
 	void setupPIDServers();
