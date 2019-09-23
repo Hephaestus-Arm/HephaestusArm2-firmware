@@ -7,7 +7,7 @@
 
 #ifndef PID_H_
 #define PID_H_
-
+#define numIntegralValues  30.0
 class RBEPID {
 
 public:
@@ -17,7 +17,6 @@ public:
 	float kd = 0;
 	float last_error = 0;
 	int sampleRateMs = 5;
-	float numIntegralValues = 30.0;
 	float inteegralBuffer[(int)numIntegralValues];
 	float integralTotal=0;
 	int integralIndex=0;

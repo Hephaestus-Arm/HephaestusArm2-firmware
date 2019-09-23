@@ -38,7 +38,7 @@ float RBEPID::calc(double setPoint, double curPosition) {
 	inteegralBuffer[integralIndex]=err;
 	integralTotal+=inteegralBuffer[integralIndex];
 	integralIndex++;
-	if(integralIndex>=numIntegralValues)
+	if(integralIndex==(int)numIntegralValues)
 		integralIndex=0;
 	float iterm = (integralTotal/numIntegralValues)*ki * sampleRateMs;
 
