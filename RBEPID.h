@@ -7,7 +7,7 @@
 
 #ifndef PID_H_
 #define PID_H_
-#define numIntegralValues  30.0
+#define numIntegralValues  100.0
 class RBEPID {
 
 public:

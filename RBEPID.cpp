@@ -44,7 +44,7 @@ float RBEPID::calc(double setPoint, double curPosition) {
 
 	// sum up the error value to send to the motor based off gain values.
 
-	float out = err * kp + iterm+dterm;	// simple P controller
+	float out = (err * kp + iterm+dterm)/1000.0;	// simple P controller
 	//return the control signal from -1 to 1
 	if (out > 1)
 		out = 1;
