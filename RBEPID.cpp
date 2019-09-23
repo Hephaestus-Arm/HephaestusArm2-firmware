@@ -31,13 +31,20 @@ float RBEPID::calc(double setPoint, double curPosition) {
 	// calculate error
 	float err = setPoint - curPosition;
 	// calculate derivative of error
-	//TODO
+	float dterm = ((err-last_error)/sampleRateMs)*kd;
+	last_error=err;
 	// calculate integral error. Running average is best but hard to implement
-	//TODO
-	// sum up the error value to send to the motor based off gain values.
-	//TODO
+	integralTotal-=inteegralBuffer[integralIndex];
+	inteegralBuffer[integralIndex]=err;
+	integralTotal+=inteegralBuffer[integralIndex];
+	integralIndex++;
+	if(integralIndex>=numIntegralValues)
+		integralIndex=0;
+	float iterm = (integralTotal/numIntegralValues)*ki * sampleRateMs;
 
-	float out = err * kp;	// simple P controller
+	// sum up the error value to send to the motor based off gain values.
+
+	float out = err * kp + iterm+dterm;	// simple P controller
 	//return the control signal from -1 to 1
 	if (out > 1)
 		out = 1;
@@ -52,4 +59,8 @@ float RBEPID::calc(double setPoint, double curPosition) {
  */
 void RBEPID::clearIntegralBuffer() {
 	//TODO implement this when implementing the integral term
+	integralTotal=0;
+	for(int i=0;i<numIntegralValues;i++)
+		inteegralBuffer[i]=0;
+	integralIndex=0;
 }
