@@ -20,9 +20,9 @@ StudentsRobot::StudentsRobot(PIDMotor * motor1,
 	this->motor3 = motor3;
 
 	// Set the PID Clock gating rate. The PID must be 10 times slower than the motors update rate
-	motor1->myPID.sampleRateMs = 5; //
-	motor2->myPID.sampleRateMs = 5; //
-	motor3->myPID.sampleRateMs = 5;  // 10khz H-Bridge, 0.1ms update, 1 ms PID
+	motor1->myPID.sampleRateMs = 1; //
+	motor2->myPID.sampleRateMs = 1; //
+	motor3->myPID.sampleRateMs = 1;  // 10khz H-Bridge, 0.1ms update, 1 ms PID
 
 	// Set default P.I.D gains
 	motor1->myPID.setpid(0.015, 0, 0);
@@ -37,14 +37,14 @@ StudentsRobot::StudentsRobot(PIDMotor * motor1,
 	motor1->setOutputBoundingValues(-255, //the minimum value that the output takes (Full reverse)
 			255, //the maximum value the output takes (Full forward)
 			0, //the value of the output to stop moving
-			44, //a positive value subtracted from stop value to creep backward
-			44, //a positive value added to the stop value to creep forwards
+			126, //a positive value subtracted from stop value to creep backward
+			126, //a positive value added to the stop value to creep forwards
 			16.0 * // Encoder CPR
 					50.0 * // Motor Gear box ratio
 					motorToWheel * // motor to wheel stage ratio
 					(1.0 / 360.0) * // degrees per revolution
 					2, // Number of edges that are used to increment the value
-			480, // measured max degrees per second
+			876, // measured max degrees per second
 			150 // the speed in degrees per second that the motor spins when the hardware output is at creep forwards
 			);
 	motor2->setOutputBoundingValues(-255, //the minimum value that the output takes (Full reverse)

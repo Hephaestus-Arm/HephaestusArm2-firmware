@@ -24,7 +24,8 @@ void GetPIDVelocity::event(float * buffer) {
 		PIDMotor * current = pidlist[i];
 		buffer[i * 3 + 1 + 0] = current->mode==VEL?current->targetDegreesPerSecond:0;
 		buffer[i * 3 + 1 + 1] = current->getVelocityDegreesPerSecond();
-		buffer[i * 3 + 1 + 2] = current->Output*100.0;
+		//buffer[i * 3 + 1 + 2] = current->Output*100.0;
+		buffer[i * 3 + 1 + 2] = current->hardwareOutput;
 	}
 
 }
