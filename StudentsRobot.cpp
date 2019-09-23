@@ -43,7 +43,7 @@ StudentsRobot::StudentsRobot(PIDMotor * motor1,
 					50.0 * // Motor Gear box ratio
 					motorToWheel * // motor to wheel stage ratio
 					(1.0 / 360.0) * // degrees per revolution
-					2, // Number of edges that are used to increment the value
+					4, // Number of edges that are used to increment the value
 			876, // measured max degrees per second
 			150 // the speed in degrees per second that the motor spins when the hardware output is at creep forwards
 			);
@@ -56,7 +56,7 @@ StudentsRobot::StudentsRobot(PIDMotor * motor1,
 					50.0 * // Motor Gear box ratio
 					motorToWheel * // motor to wheel stage ratio
 					(1.0 / 360.0) * // degrees per revolution
-					2, // Number of edges that are used to increment the value
+					4, // Number of edges that are used to increment the value
 			480, // measured max degrees per second
 			150	// the speed in degrees per second that the motor spins when the hardware output is at creep forwards
 			);
@@ -69,7 +69,7 @@ StudentsRobot::StudentsRobot(PIDMotor * motor1,
 					50.0 * // Motor Gear box ratio
 					1.0 * // motor to arm stage ratio
 					(1.0 / 360.0) * // degrees per revolution
-					2, // Number of edges that are used to increment the value
+					4, // Number of edges that are used to increment the value
 			1400, // measured max degrees per second
 			50 // the speed in degrees per second that the motor spins when the hardware output is at creep forwards
 			);
