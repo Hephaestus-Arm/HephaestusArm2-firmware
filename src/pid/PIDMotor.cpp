@@ -108,7 +108,8 @@ void PIDMotor::velocityLoop() {
 						-getFreeSpinMaxDegreesPerSecond(),
 						-freeSpinMinDegreesPerSecond,
 					-1,0);
-	// TODO Apply PD velocity terms here, 2002 velocity lab
+
+
 	setOutputUnitVector(openLoopTerm);
 }
 

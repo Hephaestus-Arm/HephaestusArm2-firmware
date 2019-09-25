@@ -34,26 +34,26 @@
 /**
  * Drive motor 2 10Khz full duty PWM pin
  */
-#define MOTOR2_PWM 15
+#define MOTOR2_PWM 14
 /**
  * Pin for setting the direction of the H-Bridge
  */
-#define MOTOR2_DIR 2
+#define MOTOR2_DIR 16
 /**
  * Drive motor 3 10Khz full duty PWM pin
  */
-#define MOTOR3_PWM 14
+#define MOTOR3_PWM 37
 /**
  * Pin for setting the direction of the H-Bridge
  */
-#define MOTOR3_DIR 26
+#define MOTOR3_DIR 39
 
 //Encoder pins
 #define MOTOR1_ENCA 19 // White
 #define MOTOR1_ENCB 18 // Yellow
 
-#define MOTOR2_ENCA 17 // White
-#define MOTOR2_ENCB 16 // Yellow
+#define MOTOR2_ENCA 1 // White
+#define MOTOR2_ENCB 2 // Yellow
 
 #define MOTOR3_ENCB 25 // White
 #define MOTOR3_ENCA 12 // Yellow
