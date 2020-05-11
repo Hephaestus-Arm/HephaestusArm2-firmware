@@ -35,6 +35,13 @@ bool LewanSoulPlanner::calibrate(){
 		}
 	}
 	read();
+	Serial.println("Starting the motor motion after calibration");
+	for(int i=0;i<num;i++){
+		upstream[i]->setSetpoint(upstream[i]->getPosition());// quick set to current
+		upstream[i]->startInterpolationDegrees(0,2000,SIN);
+		motors[i]->move_time_and_wait_for_sync(0, 2000);
+	}
+	servoBus.move_sync_start();
 	return true;
 }
 void LewanSoulPlanner::read(){
@@ -88,13 +95,6 @@ void LewanSoulPlanner::loop(){
 			timeOfHomingPressed = millis();
 			if(calibrate()){
 				state =WaitingForCalibrationToFinish;
-				Serial.println("Starting the motor motion after calibration");
-				for(int i=0;i<num;i++){
-					upstream[i]->setSetpoint(upstream[i]->getPosition());// quick set to current
-					upstream[i]->startInterpolationDegrees(0,2000,SIN);
-					motors[i]->move_time_and_wait_for_sync(0, 2000);
-				}
-				servoBus.move_sync_start();
 			}else{
 				Serial.println("Calibration Error");
 			}
