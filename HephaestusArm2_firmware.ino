@@ -3,13 +3,16 @@
 #include <PWMServo.h>
 // NOTE you need to add -lsupc++ -lstdc++ to "append to link" compile options
 #include <TeensySimplePacketComs.h>
-#include <TeensySimplePacketComs.h>
 
 #include "src/RobotControlCenter.h"
 #include "config.h"
 
 RobotControlCenter * controlCenter;
 void setup() {
+	while(!Serial);
+	delay(1000);
+	Serial.begin(115200);
+	Serial.println("Starting");
 	controlCenter = new RobotControlCenter(new String(TEAM_NAME));
 }
 
