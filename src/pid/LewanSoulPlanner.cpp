@@ -34,15 +34,20 @@ bool LewanSoulPlanner::calibrate(){
 			return false;
 		}
 	}
+	read();
 	return true;
 }
-void LewanSoulPlanner::update(){
-	long start = millis();
-	servoBus.move_sync_start();
+void LewanSoulPlanner::read(){
 	for(int i=0;i<num;i++){
 		int32_t pos = motors[i]->pos_read();
 		upstream[i]->setCachedPosition(pos);
 	}
+}
+
+void LewanSoulPlanner::update(){
+	long start = millis();
+	servoBus.move_sync_start();
+	read();
 	for(int i=0;i<num;i++){
 		int32_t target = upstream[i]->getSetPoint();
 		if(target>motors[i]->getMaxCentDegrees()){
@@ -58,12 +63,7 @@ void LewanSoulPlanner::update(){
 	}
 }
 void LewanSoulPlanner::loop(){
-	if(state !=WaitForHomeRelease)
-		if(!digitalRead(HOME_SWITCH_PIN)){
-			timeOfHomingPressed = millis();
-			state = WaitForHomeRelease;
-			Serial.println("HOME PRESSED!");
-		}
+
 	switch(state){
 	case StartupSerial:
 		servoBus.begin(&Serial1, 1, // on TX pin 1
@@ -77,7 +77,11 @@ void LewanSoulPlanner::loop(){
 		state=WaitForHomePress;
 		break;
 	case WaitForHomePress:
-		// wait
+		if(!digitalRead(HOME_SWITCH_PIN)){
+			timeOfHomingPressed = millis();
+			state = WaitForHomeRelease;
+			Serial.println("HOME PRESSED!");
+		}
 		break;
 	case WaitForHomeRelease:
 		if(millis()-timeOfHomingPressed>500){// wait for motors to settle
@@ -85,14 +89,23 @@ void LewanSoulPlanner::loop(){
 			if(calibrate()){
 				state =WaitingForCalibrationToFinish;
 				Serial.println("Starting the motor motion after calibration");
-				for(int i=0;i<num;i++)
+				for(int i=0;i<num;i++){
+					upstream[i]->setSetpoint(upstream[i]->getPosition());// quick set to current
 					upstream[i]->startInterpolationDegrees(0,2000,SIN);
+					motors[i]->move_time_and_wait_for_sync(0, 2000);
+				}
+				servoBus.move_sync_start();
 			}else{
 				Serial.println("Calibration Error");
 			}
 		}
 		break;
 	case WaitingForCalibrationToFinish:
+		read();
+		if(!digitalRead(HOME_SWITCH_PIN)){
+			//still on the homing switch
+			break;
+		}
 		for(int i=0;i<num;i++){
 			if(!upstream[i]->isInterpolationDone())
 				break;// not done yet

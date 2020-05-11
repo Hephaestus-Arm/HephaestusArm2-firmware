@@ -29,6 +29,7 @@ public:
 	~LewanSoulPlanner();
 	void loop();
 	void update();
+	void read();
 	bool calibrate();
 };
 

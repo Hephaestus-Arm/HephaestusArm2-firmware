@@ -98,13 +98,14 @@ protected:
 	 */
 	float myFmap(float x, float in_min, float in_max, float out_min,
 			float out_max);
+
+public:
 	/**
 	 * Get the setpoint
 	 *
 	 * @return the setpoint in sensor "Ticks"
 	 */
 	float getSetPoint();
-public:
 	double Setpoint = 0, Input = 0, Output = 0;
 	/**
 	 * The value that is being sent to the hardware
