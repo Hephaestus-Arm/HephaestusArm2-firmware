@@ -39,11 +39,7 @@ StudentsRobot::StudentsRobot(PIDMotor * motor1,
 			0, //the value of the output to stop moving
 			126, //a positive value subtracted from stop value to creep backward
 			126, //a positive value added to the stop value to creep forwards
-			16.0 * // Encoder CPR
-					50.0 * // Motor Gear box ratio
-					motorToWheel * // motor to wheel stage ratio
-					(1.0 / 360.0) * // degrees per revolution
-					4, // Number of edges that are used to increment the value
+			100, // 100 Cent-Degrees per degree
 			876, // measured max degrees per second
 			150 // the speed in degrees per second that the motor spins when the hardware output is at creep forwards
 			);
@@ -52,11 +48,7 @@ StudentsRobot::StudentsRobot(PIDMotor * motor1,
 			0, //the value of the output to stop moving
 			44, //a positive value subtracted from stop value to creep backward
 			44, //a positive value added to the stop value to creep forwards
-			16.0 * // Encoder CPR
-					50.0 * // Motor Gear box ratio
-					motorToWheel * // motor to wheel stage ratio
-					(1.0 / 360.0) * // degrees per revolution
-					4, // Number of edges that are used to increment the value
+			100, // 100 Cent-Degrees per degree
 			480, // measured max degrees per second
 			150	// the speed in degrees per second that the motor spins when the hardware output is at creep forwards
 			);
@@ -65,11 +57,7 @@ StudentsRobot::StudentsRobot(PIDMotor * motor1,
 			0, //the value of the output to stop moving
 			44, //a positive value subtracted from stop value to creep backward
 			44, //a positive value added to the stop value to creep forwards
-			16.0 * // Encoder CPR
-					50.0 * // Motor Gear box ratio
-					1.0 * // motor to arm stage ratio
-					(1.0 / 360.0) * // degrees per revolution
-					4, // Number of edges that are used to increment the value
+			100, // 100 Cent-Degrees per degree
 			1400, // measured max degrees per second
 			50 // the speed in degrees per second that the motor spins when the hardware output is at creep forwards
 			);

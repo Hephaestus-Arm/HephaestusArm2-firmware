@@ -47,9 +47,9 @@ void RobotControlCenter::setup() {
 
 	Serial.println("Loading FW");
 
-	motor1.attach(MOTOR1_PWM, MOTOR1_DIR, MOTOR1_ENCA, MOTOR1_ENCB);
-	motor2.attach(MOTOR2_PWM, MOTOR2_DIR, MOTOR2_ENCA, MOTOR2_ENCB);
-	motor3.attach(MOTOR3_PWM, MOTOR3_DIR, MOTOR3_ENCA, MOTOR3_ENCB);
+//	motor1.attach(MOTOR1_PWM, MOTOR1_DIR, MOTOR1_ENCA, MOTOR1_ENCB);
+//	motor2.attach(MOTOR2_PWM, MOTOR2_DIR, MOTOR2_ENCA, MOTOR2_ENCB);
+//	motor3.attach(MOTOR3_PWM, MOTOR3_DIR, MOTOR3_ENCA, MOTOR3_ENCB);
 	// Set the setpoint the current position in motor units to ensure no motion
 	motor1.setSetpoint(motor1.getPosition());
 	motor2.setSetpoint(motor2.getPosition());
@@ -59,8 +59,7 @@ void RobotControlCenter::setup() {
 	//servo.setPeriodHertz(50);
 	servo.attach(SERVO_PIN, 1000, 2000);
 	robot = new StudentsRobot(&motor1, &motor2, &motor3, &servo);
-
-
+	planner = new LewanSoulPlanner(numberOfPID, pidList);
 
 	// Attach coms
 	//coms.attach(new NameCheckerServer(name)); // @suppress("Method cannot be resolved")  @suppress("Invalid arguments")
@@ -82,6 +81,7 @@ void RobotControlCenter::fastLoop() {
 		return;
 	coms.server(); // @suppress("Method cannot be resolved")
 	robot->pidLoop();
+	planner->loop();
 	robot->updateStateMachine();
 
 }

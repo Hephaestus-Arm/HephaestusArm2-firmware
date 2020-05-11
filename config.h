@@ -22,6 +22,8 @@
  * Enable for all H-bridges
  */
 #define H_BRIDGE_ENABLE             13
+
+#define HOME_SWITCH_PIN 32
 // Pins
 /**
  * Drive motor 1 10Khz full duty PWM pin

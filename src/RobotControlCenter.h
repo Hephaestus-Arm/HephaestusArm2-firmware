@@ -15,6 +15,8 @@
 #include "../RBEPID.h"
 #include "pid/PIDMotor.h"
 #include "pid/HBridgeEncoderPIDMotor.h"
+#include "pid/LewanSoulPlanner.h"
+#include "pid/SerialMotor.h"
 #include <SimplePacketComs.h>
 #include <TeensySimplePacketComs.h>
 #include "commands/GetPIDConstants.h"
@@ -88,12 +90,12 @@ public:
 	 */
 	StudentsRobot * robot;
 protected:
-	HBridgeEncoderPIDMotor motor1;  // PID controlled motor object
-	HBridgeEncoderPIDMotor motor2; // PID controlled motor object
-	HBridgeEncoderPIDMotor motor3; // PID controlled motor object
+	SerialMotor motor1;  // PID controlled motor object
+	SerialMotor motor2; // PID controlled motor object
+	SerialMotor motor3; // PID controlled motor object
 	// Servo objects
 	PWMServo servo;
-
+	LewanSoulPlanner * planner;
 	//
 	/**
 	 * Internal setup function to set up all objects
