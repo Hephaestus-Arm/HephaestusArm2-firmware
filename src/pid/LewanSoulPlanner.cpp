@@ -66,7 +66,7 @@ void LewanSoulPlanner::update(){
 			upstream[i]->setSetpoint(target);
 		}
 		int timingOffset = millis()-start;
-		motors[i]->move_time_and_wait_for_sync(target, plannerLoopTimeMs+timingOffset);
+		motors[i]->move_time_and_wait_for_sync(target, plannerLoopTimeMs+timingOffset+2);
 	}
 }
 void LewanSoulPlanner::loop(){
@@ -84,6 +84,7 @@ void LewanSoulPlanner::loop(){
 		state=WaitForHomePress;
 		break;
 	case WaitForHomePress:
+		//read();
 		if(!digitalRead(HOME_SWITCH_PIN)){
 			timeOfHomingPressed = millis();
 			state = WaitForHomeRelease;
@@ -91,6 +92,7 @@ void LewanSoulPlanner::loop(){
 		}
 		break;
 	case WaitForHomeRelease:
+		//read();
 		if(millis()-timeOfHomingPressed>500){// wait for motors to settle
 			timeOfHomingPressed = millis();
 			if(calibrate()){
