@@ -6,9 +6,9 @@
  */
 
 #include "LewanSoulPlanner.h"
-int32_t startingAngles []= {-9000,0,9000};
+int32_t startingAngles []= {-9000, 8613, 3371};
 int32_t upperAngles []= {9000,10000,9000};
-int32_t lowerAngles []= {-9000,-2512,-9000};
+int32_t lowerAngles []= {-9000,-4500,-9000};
 
 LewanSoulPlanner::LewanSoulPlanner(int n, SerialMotor ** list) {
 	num=n;
@@ -26,13 +26,13 @@ LewanSoulPlanner::~LewanSoulPlanner() {
 }
 bool LewanSoulPlanner::calibrate(){
 	for(int i=0;i<num;i++){
-		Serial.println("Calibrating "+String(i));
-		motors[i]->calibrate(startingAngles[i]);
-		motors[i]->angle_limit(lowerAngles[i],upperAngles[i]);
+
+		motors[i]->calibrate(startingAngles[i],lowerAngles[i],upperAngles[i]);
 		int32_t pos = motors[i]->pos_read();
 		if(pos!=startingAngles[i]){
 			return false;
 		}
+		Serial.println("Calibrated "+String(i+1));
 	}
 	read();
 	Serial.println("Starting the motor motion after calibration");
@@ -98,7 +98,7 @@ void LewanSoulPlanner::loop(){
 			if(calibrate()){
 				state =WaitingForCalibrationToFinish;
 			}else{
-				Serial.println("Calibration Error");
+				Serial.println("Cal Error");
 			}
 		}
 		break;
