@@ -37,11 +37,11 @@ bool LewanSoulPlanner::calibrate(){
 	read();
 	Serial.println("Starting the motor motion after calibration");
 	for(int i=0;i<num;i++){
-		upstream[i]->setSetpoint(upstream[i]->getPosition());// quick set to current
-		upstream[i]->startInterpolationDegrees(0,2000,SIN);
-		motors[i]->move_time_and_wait_for_sync(0, 2000);
+		upstream[i]->setSetpoint(motors[i]->pos_read());// quick set to current
+		//upstream[i]->startInterpolationDegrees(startingAngles[i],2000,SIN);
+		//motors[i]->move_time_and_wait_for_sync(startingAngles[i], 2000);
 	}
-	servoBus.move_sync_start();
+	//servoBus.move_sync_start();
 	return true;
 }
 void LewanSoulPlanner::read(){
