@@ -1,6 +1,6 @@
 /**@file template.ino */
 #include <Encoder.h>
-#include <PWMServo.h>
+#include <Servo.h>
 // NOTE you need to add -lsupc++ -lstdc++ to "append to link" compile options
 #include <TeensySimplePacketComs.h>
 #include <lx16a-servo.h>

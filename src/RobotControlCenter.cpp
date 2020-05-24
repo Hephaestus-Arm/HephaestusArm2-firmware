@@ -38,6 +38,7 @@ RobotControlCenter::RobotControlCenter(String * mn) {
 	state = Startup;
 	name = mn;
 	robot = NULL;
+	planner = NULL;
 }
 
 void RobotControlCenter::setup() {
@@ -62,7 +63,6 @@ void RobotControlCenter::setup() {
 	planner = new LewanSoulPlanner(numberOfPID, pidList);
 
 	// Attach coms
-	//coms.attach(new NameCheckerServer(name)); // @suppress("Method cannot be resolved")  @suppress("Invalid arguments")
 	coms.attach(new SetPIDSetpoint(numberOfPID, pidList)); // @suppress("Method cannot be resolved")  @suppress("Invalid arguments")
 	coms.attach(new SetPIDConstants(numberOfPID, pidList)); // @suppress("Method cannot be resolved")  @suppress("Invalid arguments")
 	coms.attach(new GetPIDData(numberOfPID, pidList)); // @suppress("Method cannot be resolved")  @suppress("Invalid arguments")
@@ -72,7 +72,7 @@ void RobotControlCenter::setup() {
 	coms.attach(new GetPDVelocityConstants(numberOfPID, pidList));// @suppress("Invalid arguments")
 	coms.attach(new SetPIDVelocity(numberOfPID, pidList));// @suppress("Invalid arguments")
 	coms.attach(new SetPDVelocityConstants(numberOfPID, pidList));//  @suppress("Invalid arguments")
-
+	coms.attach(new ServoServer());
 
 }
 

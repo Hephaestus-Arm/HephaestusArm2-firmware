@@ -29,6 +29,7 @@
 #include "commands/SetPIDVelocity.h"
 #include "commands/GetPDVelocityConstants.h"
 #include "commands/GetPIDVelocity.h"
+#include "commands/ServoServer.h"
 
 enum state_t {
 	Startup, WaitForConnect, run
