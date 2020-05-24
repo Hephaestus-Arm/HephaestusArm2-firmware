@@ -7,7 +7,7 @@
 
 #include "LewanSoulPlanner.h"
 int32_t startingAngles []= {-9000, 8613, 3371};
-int32_t upperAngles []= {9000,10000,9000};
+int32_t upperAngles []= {9000,10000,6300};
 int32_t lowerAngles []= {-9000,-4500,-9000};
 
 LewanSoulPlanner::LewanSoulPlanner(int n, SerialMotor ** list) {
@@ -82,6 +82,7 @@ void LewanSoulPlanner::loop(){
 		for(int i=0;i<num;i++)
 				motors[i]->disable();
 		state=WaitForHomePress;
+		pinMode(INDICATOR, OUTPUT);
 		break;
 	case WaitForHomePress:
 		//read();
@@ -89,12 +90,25 @@ void LewanSoulPlanner::loop(){
 			timeOfHomingPressed = millis();
 			state = WaitForHomeRelease;
 			Serial.println("HOME PRESSED!");
+			digitalWrite(INDICATOR, 0);
+		}else{
+			if(millis()-timeOfLastBlink>1000){
+				timeOfLastBlink=millis();
+				blinkState=!blinkState;
+				digitalWrite(INDICATOR, blinkState?1:0);
+			}
 		}
 		break;
 	case WaitForHomeRelease:
 		//read();
-		if(millis()-timeOfHomingPressed>500){// wait for motors to settle
+		if(millis()-timeOfLastBlink>200){
+			timeOfLastBlink=millis();
+			blinkState=!blinkState;
+			digitalWrite(INDICATOR, blinkState?1:0);
+		}
+		if(millis()-timeOfHomingPressed>500 && !digitalRead(HOME_SWITCH_PIN)){// wait for motors to settle, debounce
 			timeOfHomingPressed = millis();
+			digitalWrite(INDICATOR, 0);
 			if(calibrate()){
 				state =WaitingForCalibrationToFinish;
 			}else{
@@ -104,6 +118,11 @@ void LewanSoulPlanner::loop(){
 		break;
 	case WaitingForCalibrationToFinish:
 		read();
+		if(millis()-timeOfLastBlink>50){
+			timeOfLastBlink=millis();
+			blinkState=!blinkState;
+			digitalWrite(INDICATOR, blinkState?1:0);
+		}
 		if(!digitalRead(HOME_SWITCH_PIN)){
 			//still on the homing switch
 			break;
@@ -114,6 +133,7 @@ void LewanSoulPlanner::loop(){
 		}
 		Serial.println("Starting the planner");
 		state=running;
+		digitalWrite(INDICATOR, 1);
 		break;
 	case WaitingToRun:
 		if(millis()-timeOfLastRun>plannerLoopTimeMs){
@@ -122,8 +142,20 @@ void LewanSoulPlanner::loop(){
 		}
 		break;
 	case running:
-		update();
-		state=WaitingToRun;
+		if(digitalRead(HOME_SWITCH_PIN)){
+			update();
+			state=WaitingToRun;
+		}else{
+			for(int i=0;i<num;i++)
+				motors[i]->disable();
+			state=disabled;
+		}
+		break;
+	case disabled:
+		read();
+		if(digitalRead(HOME_SWITCH_PIN)){
+			state=running;
+		}
 		break;
 	}
 }

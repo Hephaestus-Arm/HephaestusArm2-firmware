@@ -13,7 +13,7 @@
 #include "../../config.h"
 #define plannerLoopTimeMs 30
 enum LewanSoulState_t {
-	StartupSerial, WaitForHomePress,WaitForHomeRelease,WaitingForCalibrationToFinish,WaitingToRun,running
+	StartupSerial, WaitForHomePress,WaitForHomeRelease,WaitingForCalibrationToFinish,WaitingToRun,running,disabled
 // Add more states here and be sure to add them to the cycle
 };
 class LewanSoulPlanner {
@@ -24,6 +24,8 @@ class LewanSoulPlanner {
 	LewanSoulState_t state=StartupSerial;
 	long timeOfLastRun = 0;
 	long timeOfHomingPressed=0;
+	bool blinkState = false;
+	long timeOfLastBlink = 0;
 public:
 	LewanSoulPlanner( int num, SerialMotor ** list);
 	~LewanSoulPlanner();

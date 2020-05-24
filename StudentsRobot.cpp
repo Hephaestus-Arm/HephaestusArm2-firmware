@@ -64,7 +64,7 @@ StudentsRobot::StudentsRobot(PIDMotor * motor1,
 	// Set up the line tracker
 	//pinMode(ANALOG_SENSE_ONE, ANALOG);
 	//pinMode(ANALOG_SENSE_TWO, ANALOG);
-	pinMode(H_BRIDGE_ENABLE, OUTPUT);
+
 }
 /**
  * Separate from running the motor control,
@@ -81,7 +81,7 @@ void StudentsRobot::updateStateMachine() {
 	case StartRunning:
 		Serial.println("Start Running");
 
-		digitalWrite(H_BRIDGE_ENABLE, 1);
+
 		// Start an interpolation of the motors
 		motor1->startInterpolationDegrees(1080, 6000, SIN);
 		motor2->startInterpolationDegrees(1080, 6000, SIN);

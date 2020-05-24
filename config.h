@@ -21,7 +21,7 @@
 /**
  * Enable for all H-bridges
  */
-#define H_BRIDGE_ENABLE             13
+#define INDICATOR             13
 
 #define HOME_SWITCH_PIN 32
 // Pins
