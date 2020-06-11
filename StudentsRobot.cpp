@@ -12,7 +12,7 @@
 
 StudentsRobot::StudentsRobot(PIDMotor * motor1,
 		PIDMotor * motor2, PIDMotor * motor3,
-		PWMServo * servo) {
+		Servo * servo) {
 	Serial.println("StudentsRobot::StudentsRobot constructor called here ");
 	this->servo = servo;
 	this->motor1 = motor1;

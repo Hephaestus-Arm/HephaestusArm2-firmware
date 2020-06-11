@@ -9,10 +9,9 @@
 #define STUDENTSROBOT_H_
 #include "config.h"
 #include <Arduino.h>
-#include "src/pid/HBridgeEncoderPIDMotor.h"
+//#include "src/pid/HBridgeEncoderPIDMotor.h"
 #include "DriveChassis.h"
-#include <PWMServo.h>
-
+#include <Servo.h>
 /**
  * @enum RobotStateMachine
  * These are sample values for a sample state machine.
@@ -51,7 +50,7 @@ private:
 	PIDMotor * motor1;
 	PIDMotor * motor2;
 	PIDMotor * motor3;
-	PWMServo * servo;
+	Servo * servo;
 	float lsensorVal=0;
 	float rsensorVal=0;
 	long nextTime =0;
@@ -70,7 +69,7 @@ public:
 	 */
 	StudentsRobot(PIDMotor * motor1,
 			PIDMotor * motor2, PIDMotor * motor3,
-			PWMServo * servo);
+			Servo * servo);
 	/**
 	 * Command status
 	 *

@@ -14,11 +14,19 @@
 #include "../config.h"
 #include "../RBEPID.h"
 #include "pid/PIDMotor.h"
-#include "pid/HBridgeEncoderPIDMotor.h"
 #include "pid/LewanSoulPlanner.h"
 #include "pid/SerialMotor.h"
 #include <SimplePacketComs.h>
-#include <TeensySimplePacketComs.h>
+#if defined(__MK64FX512__) || defined(__MK66FX1M0__)
+	// SImple packet coms implementation useing WiFi
+		#include <TeensySimplePacketComs.h>
+#elif defined(_VARIANT_ARDUINO_ZERO_)
+#include "hid/ZeroHIDSimplePacketComs.h"
+
+#else
+#error "NO coms layer supported!"
+#endif
+
 #include "commands/GetPIDConstants.h"
 #include "commands/GetPIDData.h"
 #include "commands/SetPIDConstants.h"
@@ -58,9 +66,16 @@ private:
 	// List of PID objects to use with PID server
 	PIDMotor * pidList[numberOfPID];	// = { &motor1.myPID, &motor2.myPID };
 
-
+#if defined(__MK64FX512__) || defined(__MK66FX1M0__)
 	// SImple packet coms implementation useing WiFi
-	HIDSimplePacket coms;
+		HIDSimplePacket coms;
+#elif defined(_VARIANT_ARDUINO_ZERO_)
+		ZeroHIDSimplePacketComs coms;
+
+#else
+#error "NO coms layer supported!"
+#endif
+
 
 
 	//attach the PID servers
@@ -95,7 +110,7 @@ protected:
 	SerialMotor motor2; // PID controlled motor object
 	SerialMotor motor3; // PID controlled motor object
 	// Servo objects
-	PWMServo servo;
+	Servo servo;
 	LewanSoulPlanner * planner;
 	//
 	/**
