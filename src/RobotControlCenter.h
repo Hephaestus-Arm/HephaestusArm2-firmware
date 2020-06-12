@@ -20,7 +20,7 @@
 #if defined(__MK64FX512__) || defined(__MK66FX1M0__)
 	// SImple packet coms implementation useing WiFi
 		#include <TeensySimplePacketComs.h>
-#elif defined(_VARIANT_ARDUINO_ZERO_)
+#elif defined(_VARIANT_ARDUINO_ZERO_)|| defined(__SAMD51__)
 #include "hid/ZeroHIDSimplePacketComs.h"
 
 #else
@@ -69,7 +69,7 @@ private:
 #if defined(__MK64FX512__) || defined(__MK66FX1M0__)
 	// SImple packet coms implementation useing WiFi
 		HIDSimplePacket coms;
-#elif defined(_VARIANT_ARDUINO_ZERO_)
+#elif defined(_VARIANT_ARDUINO_ZERO_)|| defined(__SAMD51__)
 		ZeroHIDSimplePacketComs coms;
 
 #else

@@ -1,10 +1,11 @@
 /**@file template.ino */
 #include <Servo.h>
+
 // Teensy 3.5 and 3.6
 #if defined(__MK64FX512__) || defined(__MK66FX1M0__)
 // NOTE you need to add -lsupc++ -lstdc++ to "append to link" compile options
 #include <TeensySimplePacketComs.h>
-#elif defined(_VARIANT_ARDUINO_ZERO_)
+#elif defined(_VARIANT_ARDUINO_ZERO_)|| defined(__SAMD51__)
 
 
 #else

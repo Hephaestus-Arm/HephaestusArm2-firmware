@@ -9,7 +9,7 @@
 #define SRC_HID_ZEROHIDSIMPLEPACKETCOMS_H_
 #include <Arduino.h>
 #include <SimplePacketComs.h>
-#if defined(_VARIANT_ARDUINO_ZERO_)
+#if defined(_VARIANT_ARDUINO_ZERO_)|| defined(__SAMD51__)
 	class ZeroHIDSimplePacketComs  : public SimplePacketComsAbstract{
 	public:
 		ZeroHIDSimplePacketComs();

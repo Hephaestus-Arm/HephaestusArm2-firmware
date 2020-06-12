@@ -6,8 +6,7 @@
  */
 
 #include "ZeroHIDSimplePacketComs.h"
-#if defined(_VARIANT_ARDUINO_ZERO_)
-
+#if defined(_VARIANT_ARDUINO_ZERO_)|| defined(__SAMD51__)
 
 ZeroHIDSimplePacketComs::ZeroHIDSimplePacketComs() {
 	// TODO Auto-generated constructor stub

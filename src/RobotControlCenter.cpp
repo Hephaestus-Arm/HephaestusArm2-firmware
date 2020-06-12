@@ -60,7 +60,7 @@ void RobotControlCenter::setup() {
 	//servo.setPeriodHertz(50);
 	servo.attach(SERVO_PIN, 1000, 2000);
 	robot = new StudentsRobot(&motor1, &motor2, &motor3, &servo);
-	planner = new LewanSoulPlanner(numberOfPID, pidList);
+	planner = new LewanSoulPlanner(numberOfPID, (SerialMotor **)pidList);
 
 	// Attach coms
 	coms.attach(new SetPIDSetpoint(numberOfPID, pidList)); // @suppress("Method cannot be resolved")  @suppress("Invalid arguments")
