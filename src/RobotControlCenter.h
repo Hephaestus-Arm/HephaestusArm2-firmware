@@ -17,15 +17,6 @@
 #include "pid/LewanSoulPlanner.h"
 #include "pid/SerialMotor.h"
 #include <SimplePacketComs.h>
-#if defined(__MK64FX512__) || defined(__MK66FX1M0__)
-	// SImple packet coms implementation useing WiFi
-		#include <TeensySimplePacketComs.h>
-#elif defined(_VARIANT_ARDUINO_ZERO_)|| defined(__SAMD51__)
-#include "hid/ZeroHIDSimplePacketComs.h"
-#include "Adafruit_TinyUSB.h"
-#else
-#error "NO coms layer supported!"
-#endif
 
 #include "commands/GetPIDConstants.h"
 #include "commands/GetPIDData.h"

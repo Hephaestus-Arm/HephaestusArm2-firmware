@@ -85,7 +85,7 @@ void LewanSoulPlanner::loop(){
 		pinMode(INDICATOR, OUTPUT);
 		break;
 	case WaitForHomePress:
-		//read();
+		read();
 		if(!digitalRead(HOME_SWITCH_PIN)){
 			timeOfHomingPressed = millis();
 			state = WaitForHomeRelease;
