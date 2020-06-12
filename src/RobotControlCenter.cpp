@@ -31,7 +31,7 @@ void RobotControlCenter::loop() {
 
 }
 
-RobotControlCenter::RobotControlCenter(String * mn) {
+RobotControlCenter::RobotControlCenter(String * mn,SimplePacketComsAbstract* comsPtr) {
 	pidList[0] = &motor1;
 	pidList[1] = &motor2;
 	pidList[2] = &motor3;
@@ -39,6 +39,7 @@ RobotControlCenter::RobotControlCenter(String * mn) {
 	name = mn;
 	robot = NULL;
 	planner = NULL;
+	coms=comsPtr;
 }
 
 void RobotControlCenter::setup() {
@@ -63,23 +64,23 @@ void RobotControlCenter::setup() {
 	planner = new LewanSoulPlanner(numberOfPID, (SerialMotor **)pidList);
 
 	// Attach coms
-	coms.attach(new SetPIDSetpoint(numberOfPID, pidList)); // @suppress("Method cannot be resolved")  @suppress("Invalid arguments")
-	coms.attach(new SetPIDConstants(numberOfPID, pidList)); // @suppress("Method cannot be resolved")  @suppress("Invalid arguments")
-	coms.attach(new GetPIDData(numberOfPID, pidList)); // @suppress("Method cannot be resolved")  @suppress("Invalid arguments")
-	coms.attach( // @suppress("Method cannot be resolved")  @suppress("Invalid arguments")
+	coms->attach(new SetPIDSetpoint(numberOfPID, pidList)); // @suppress("Method cannot be resolved")  @suppress("Invalid arguments")
+	coms->attach(new SetPIDConstants(numberOfPID, pidList)); // @suppress("Method cannot be resolved")  @suppress("Invalid arguments")
+	coms->attach(new GetPIDData(numberOfPID, pidList)); // @suppress("Method cannot be resolved")  @suppress("Invalid arguments")
+	coms->attach( // @suppress("Method cannot be resolved")  @suppress("Invalid arguments")
 			new GetPIDConstants(numberOfPID, pidList));// @suppress("Invalid arguments")
-	coms.attach(new GetPIDVelocity(numberOfPID, pidList));// @suppress("Invalid arguments")
-	coms.attach(new GetPDVelocityConstants(numberOfPID, pidList));// @suppress("Invalid arguments")
-	coms.attach(new SetPIDVelocity(numberOfPID, pidList));// @suppress("Invalid arguments")
-	coms.attach(new SetPDVelocityConstants(numberOfPID, pidList));//  @suppress("Invalid arguments")
-	coms.attach(new ServoServer());
+	coms->attach(new GetPIDVelocity(numberOfPID, pidList));// @suppress("Invalid arguments")
+	coms->attach(new GetPDVelocityConstants(numberOfPID, pidList));// @suppress("Invalid arguments")
+	coms->attach(new SetPIDVelocity(numberOfPID, pidList));// @suppress("Invalid arguments")
+	coms->attach(new SetPDVelocityConstants(numberOfPID, pidList));//  @suppress("Invalid arguments")
+	coms->attach(new ServoServer());
 
 }
 
 void RobotControlCenter::fastLoop() {
 	if (state == Startup)    // Do not run before startp
 		return;
-	coms.server(); // @suppress("Method cannot be resolved")
+	coms->server(); // @suppress("Method cannot be resolved")
 	robot->pidLoop();
 	planner->loop();
 	robot->updateStateMachine();

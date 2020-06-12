@@ -10,7 +10,10 @@
 #include <Arduino.h>
 #include <SimplePacketComs.h>
 #if defined(_VARIANT_ARDUINO_ZERO_)|| defined(__SAMD51__)
+#include "Adafruit_TinyUSB.h"
 	class ZeroHIDSimplePacketComs  : public SimplePacketComsAbstract{
+
+
 	public:
 		ZeroHIDSimplePacketComs();
 		virtual ~ZeroHIDSimplePacketComs();

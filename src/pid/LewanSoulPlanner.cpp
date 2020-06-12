@@ -96,6 +96,7 @@ void LewanSoulPlanner::loop(){
 				timeOfLastBlink=millis();
 				blinkState=!blinkState;
 				digitalWrite(INDICATOR, blinkState?1:0);
+				//Serial.println("Waiting for Home...");
 			}
 		}
 		break;

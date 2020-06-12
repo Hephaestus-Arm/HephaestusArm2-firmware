@@ -22,7 +22,7 @@
 		#include <TeensySimplePacketComs.h>
 #elif defined(_VARIANT_ARDUINO_ZERO_)|| defined(__SAMD51__)
 #include "hid/ZeroHIDSimplePacketComs.h"
-
+#include "Adafruit_TinyUSB.h"
 #else
 #error "NO coms layer supported!"
 #endif
@@ -66,17 +66,7 @@ private:
 	// List of PID objects to use with PID server
 	PIDMotor * pidList[numberOfPID];	// = { &motor1.myPID, &motor2.myPID };
 
-#if defined(__MK64FX512__) || defined(__MK66FX1M0__)
-	// SImple packet coms implementation useing WiFi
-		HIDSimplePacket coms;
-#elif defined(_VARIANT_ARDUINO_ZERO_)|| defined(__SAMD51__)
-		ZeroHIDSimplePacketComs coms;
-
-#else
-#error "NO coms layer supported!"
-#endif
-
-
+	SimplePacketComsAbstract* coms;
 
 	//attach the PID servers
 	void setupPIDServers();
@@ -89,7 +79,7 @@ public:
 	 * The name is used by the SimplePacketComs stack to locate your specific
 	 * robot on the network.
 	 */
-	RobotControlCenter(String * name);
+	RobotControlCenter(String * name,SimplePacketComsAbstract* comsPtr);
 	~RobotControlCenter() {
 	}
 	/**
@@ -105,6 +95,12 @@ public:
 	 * This variable is set as part of @see RobotControlCenter::setup
 	 */
 	StudentsRobot * robot;
+	/**
+	 * Internal setup function to set up all objects
+	 *
+	 * This function is called as part of the state machine by the object
+	 */
+	void setup();
 protected:
 	SerialMotor motor1;  // PID controlled motor object
 	SerialMotor motor2; // PID controlled motor object
@@ -113,12 +109,7 @@ protected:
 	Servo servo;
 	LewanSoulPlanner * planner;
 	//
-	/**
-	 * Internal setup function to set up all objects
-	 *
-	 * This function is called as part of the state machine by the object
-	 */
-	void setup();
+
 	/**
 	 * 	The fast loop actions
 	 *
