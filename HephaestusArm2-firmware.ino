@@ -20,7 +20,17 @@
 	// SImple packet coms implementation useing WiFi
 		HIDSimplePacket coms;
 #elif defined(_VARIANT_ARDUINO_ZERO_)|| defined(__SAMD51__)
-		ZeroHIDSimplePacketComs coms;
+		uint8_t const desc_hid_report[] =
+		{
+		  TUD_HID_REPORT_DESC_GENERIC_INOUT(64)
+		};
+		Adafruit_USBD_HID usb_hid;
+		ZeroHIDSimplePacketComs coms(&usb_hid);
+		uint16_t get_report_callback (uint8_t report_id, hid_report_type_t report_type, uint8_t* buffer, uint16_t reqlen);
+
+		// Invoked when received SET_REPORT control request or
+		// received data on OUT endpoint ( Report ID = 0, Type = 0 )
+		void set_report_callback(uint8_t report_id, hid_report_type_t report_type, uint8_t const* buffer, uint16_t bufsize);
 
 #else
 #error "NO coms layer supported!"
@@ -30,11 +40,17 @@
 
 RobotControlCenter * controlCenter;
 void setup() {
-	while(!Serial);
-	delay(1000);
+
 #if defined(_VARIANT_ARDUINO_ZERO_)|| defined(__SAMD51__)
-	coms.isPacketAvailible();// prime the usb stack before starting serial
+	  usb_hid.enableOutEndpoint(true);
+	  usb_hid.setPollInterval(2);
+	  usb_hid.setReportDescriptor(desc_hid_report, sizeof(desc_hid_report));
+	  usb_hid.setReportCallback(get_report_callback, set_report_callback);
+	  usb_hid.begin();
 #endif
+	while(!Serial){
+	delay(10);
+	}
 	Serial.begin(115200);
 
 	  // wait until device mounted

@@ -7,13 +7,10 @@
 
 #include "ZeroHIDSimplePacketComs.h"
 #if defined(_VARIANT_ARDUINO_ZERO_)|| defined(__SAMD51__)
-uint8_t const desc_hid_report[] =
-{
-  TUD_HID_REPORT_DESC_GENERIC_INOUT(64)
-};
+
 static int availible=0;
 static uint8_t  bufferReturn[64];
-static Adafruit_USBD_HID usb_hid;
+
 static bool initFlag=false;
 
 // Invoked when received GET_REPORT control request
@@ -34,8 +31,8 @@ void set_report_callback(uint8_t report_id, hid_report_type_t report_type, uint8
 	}
 	availible=bufsize;
 }
-ZeroHIDSimplePacketComs::ZeroHIDSimplePacketComs() {
-
+ZeroHIDSimplePacketComs::ZeroHIDSimplePacketComs(Adafruit_USBD_HID * usb) {
+	usb_hid=usb;
 }
 
 ZeroHIDSimplePacketComs::~ZeroHIDSimplePacketComs() {
@@ -49,12 +46,7 @@ ZeroHIDSimplePacketComs::~ZeroHIDSimplePacketComs() {
  bool ZeroHIDSimplePacketComs::isPacketAvailible(){
 	 if(!initFlag){
 		 initFlag=true;
-		  usb_hid.enableOutEndpoint(true);
-		  usb_hid.setPollInterval(2);
-		  usb_hid.setReportDescriptor(desc_hid_report, sizeof(desc_hid_report));
-		  usb_hid.setReportCallback(get_report_callback, set_report_callback);
-		  availible=0;
-		  usb_hid.begin();
+
 	 }
 	 return availible>0;
  }
@@ -78,7 +70,7 @@ ZeroHIDSimplePacketComs::~ZeroHIDSimplePacketComs() {
 	 if(!initFlag){
 		 return 0;
 	 }
-	 usb_hid.sendReport(0, buffer, numberOfBytes);
+	 usb_hid->sendReport(0, buffer, numberOfBytes);
 	 return numberOfBytes;
  }
 #endif

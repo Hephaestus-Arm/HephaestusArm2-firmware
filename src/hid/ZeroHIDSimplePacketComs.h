@@ -15,8 +15,9 @@
 
 
 	public:
-		ZeroHIDSimplePacketComs();
+		ZeroHIDSimplePacketComs(Adafruit_USBD_HID * usb);
 		virtual ~ZeroHIDSimplePacketComs();
+		Adafruit_USBD_HID * usb_hid;
 		  /**
 		  * Non blocking function to check if a packet is availible from the physical layer
 		  */
