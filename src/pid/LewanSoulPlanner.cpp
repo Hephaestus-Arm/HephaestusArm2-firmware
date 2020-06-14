@@ -73,16 +73,9 @@ void LewanSoulPlanner::loop(){
 
 	switch(state){
 	case StartupSerial:
-#if defined(__MK64FX512__) || defined(__MK66FX1M0__)
-		servoBus.begin(&Serial1, 1, // on TX pin 1
-				2); // use pin 2 as the TX flag for buffer
-#elif defined(_VARIANT_ARDUINO_ZERO_)|| defined(__SAMD51__)
-		servoBus.begin(&Serial1,
-				PIN_SERIAL1_TX, // on TX pin 1
-				MISO); // use pin 2 as the TX flag for buffer
-#else
-#error "NO coms layer supported!"
-#endif
+		servoBus.begin(LEWAN_SERIAL_PORT,
+				TX_LEWAN_SOUL, // on TX pin 1
+				LEWAN_TX_ENABLE_PIN); // use pin 2 as the TX flag for buffer
 
 		servoBus.retry = 2; // enforce synchronous real time
 		//servoBus.debug(true);
