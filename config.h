@@ -10,10 +10,7 @@
 
 #define TEAM_NAME "KevBot"
 
-#define USE_WIFI
 
-#define WHEEL_TRACK 175.0
-#define WHEEL_RADIUS (2.0*25.4/2.0)
 /**
  * Enable for all H-bridges
  */
