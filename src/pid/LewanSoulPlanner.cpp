@@ -37,6 +37,7 @@ bool LewanSoulPlanner::calibrate(){
 		}
 		Serial.println("Calibrated "+String(i+1));
 	}
+	delay(1000);
 	read();
 	Serial.println("Starting the motor motion after calibration");
 	for(int i=0;i<num;i++){
