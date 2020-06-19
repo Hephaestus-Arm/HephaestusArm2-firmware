@@ -10,7 +10,6 @@
 
 #define TEAM_NAME "KevBot"
 
-
 /**
  * Enable for all H-bridges
  */
@@ -26,7 +25,7 @@
 #define TX_LEWAN_SOUL 1
 #define LEWAN_TX_ENABLE_PIN 2
 #define LEWAN_SERIAL_PORT &Serial1
-#elif defined(_VARIANT_ARDUINO_ZERO_)|| defined(__SAMD51__)
+#elif defined(_VARIANT_ARDUINO_ZERO_)|| defined(__SAMD51__)|| defined(ARDUINO_ARCH_SAMD)
 /**
  * Gripper pin for Servo
  */
