@@ -13,7 +13,7 @@
 #include "../../config.h"
 #define plannerLoopTimeMs 30
 enum LewanSoulState_t {
-	StartupSerial, WaitForHomePress,WaitForHomeRelease,WaitingForCalibrationToFinish,WaitingToRun,running,disabled
+	StartupSerial, WaitForHomePress,WaitForHomeRelease,WaitingForCalibrationToFinish,WaitingToRun,running,disabled,provisioning,runProvision
 // Add more states here and be sure to add them to the cycle
 };
 class LewanSoulPlanner {
