@@ -96,8 +96,7 @@ protected:
 	SerialMotor motor1;  // PID controlled motor object
 	SerialMotor motor2; // PID controlled motor object
 	SerialMotor motor3; // PID controlled motor object
-	// Servo objects
-	Servo servo;
+
 	LewanSoulPlanner * planner;
 	//
 

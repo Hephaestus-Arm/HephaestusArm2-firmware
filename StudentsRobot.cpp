@@ -11,10 +11,8 @@
 #include "StudentsRobot.h"
 
 StudentsRobot::StudentsRobot(PIDMotor * motor1,
-		PIDMotor * motor2, PIDMotor * motor3,
-		Servo * servo) {
+		PIDMotor * motor2, PIDMotor * motor3) {
 	Serial.println("StudentsRobot::StudentsRobot constructor called here ");
-	this->servo = servo;
 	this->motor1 = motor1;
 	this->motor2 = motor2;
 	this->motor3 = motor3;

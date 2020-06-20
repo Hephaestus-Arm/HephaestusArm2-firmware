@@ -59,8 +59,7 @@ void RobotControlCenter::setup() {
 
 	// Set up digital servo for the gripper
 	//servo.setPeriodHertz(50);
-	servo.attach(SERVO_PIN, 1000, 2000);
-	robot = new StudentsRobot(&motor1, &motor2, &motor3, &servo);
+	robot = new StudentsRobot(&motor1, &motor2, &motor3);
 	planner = new LewanSoulPlanner(numberOfPID, (SerialMotor **)pidList);
 
 	// Attach coms

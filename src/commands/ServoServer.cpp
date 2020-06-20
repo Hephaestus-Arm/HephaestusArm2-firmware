@@ -7,11 +7,11 @@
 
 #include "ServoServer.h"
 #include "../../config.h"
-
+#include <Arduino.h>
 ServoServer::ServoServer() :
 PacketEventAbstract(1962){
-	servo.attach(SERVO_PIN,1000,2000);
-	servo.write(180);
+	servo.attach(SERVO_PIN);
+	servo.write(90);
 }
 
 ServoServer::~ServoServer() {
@@ -25,4 +25,5 @@ void ServoServer::event(float * buffer){
 	if (val>180)
 		val=180;
 	servo.write(val);
+	Serial.println("Setting servo to "+String(val));
 }

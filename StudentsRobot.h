@@ -50,7 +50,6 @@ private:
 	PIDMotor * motor1;
 	PIDMotor * motor2;
 	PIDMotor * motor3;
-	Servo * servo;
 	float lsensorVal=0;
 	float rsensorVal=0;
 	long nextTime =0;
@@ -68,8 +67,7 @@ public:
 	 *
 	 */
 	StudentsRobot(PIDMotor * motor1,
-			PIDMotor * motor2, PIDMotor * motor3,
-			Servo * servo);
+			PIDMotor * motor2, PIDMotor * motor3);
 	/**
 	 * Command status
 	 *
