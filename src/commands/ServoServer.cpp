@@ -10,8 +10,8 @@
 #include <Arduino.h>
 ServoServer::ServoServer() :
 PacketEventAbstract(1962){
-	servo.attach(SERVO_PIN);
-	servo.write(90);
+	servo.attach(SERVO_PIN,1000,2000);
+	servo.write(180);
 }
 
 ServoServer::~ServoServer() {
