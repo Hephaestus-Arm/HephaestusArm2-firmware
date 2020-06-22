@@ -11,7 +11,7 @@
 #include "../pid/SerialMotor.h"
 #include <lx16a-servo.h>
 #include "../../config.h"
-#define plannerLoopTimeMs 30
+#define plannerLoopTimeMs 15
 enum LewanSoulState_t {
 	StartupSerial, WaitForHomePress,WaitForHomeRelease,WaitingForCalibrationToFinish,WaitingToRun,running,disabled,provisioning,runProvision
 // Add more states here and be sure to add them to the cycle

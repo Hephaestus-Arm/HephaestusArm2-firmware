@@ -131,11 +131,12 @@ void LewanSoulPlanner::loop(){
 		state=WaitForHomePress;
 		break;
 	case StartupSerial:
+
 		servoBus.begin(LEWAN_SERIAL_PORT,
 				TX_LEWAN_SOUL, // on TX pin 1
 				LEWAN_TX_ENABLE_PIN); // use pin 2 as the TX flag for buffer
-
-		servoBus.retry = 2; // enforce synchronous real time
+		servoBus.debug(true);
+		servoBus.retry = 0; // enforce synchronous real time
 		//servoBus.debug(true);
 		Serial.println("Beginning Trajectory Planner");
 		pinMode(HOME_SWITCH_PIN, INPUT_PULLUP);
