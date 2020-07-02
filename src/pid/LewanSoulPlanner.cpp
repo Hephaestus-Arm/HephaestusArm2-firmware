@@ -6,13 +6,21 @@
  */
 
 #include "LewanSoulPlanner.h"
-int32_t startingAngles []= {-9000, 8613, 3371};
+
+#include <FlashStorage.h>
+int32_t startingAngles []= {-9000, 8614, 3371};
 int32_t upperAngles []= {9000,10000,6300};
 int32_t lowerAngles []= {-9000,-4500,-9000};
-char command[50]={NULL,};
+char command[50]={0,};
 int commandIndex =0;
 long startProvisioning=0;
 int IDToSet =0;
+
+FlashStorage(cal1, float);
+FlashStorage(cal2, float);
+FlashStorage(cal3, float);
+FlashStorage(lock, int);
+
 LewanSoulPlanner::LewanSoulPlanner(int n, SerialMotor ** list) {
 	num=n;
 	motors=new LX16AServo*[num];
