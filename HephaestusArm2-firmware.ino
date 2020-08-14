@@ -2,7 +2,6 @@
 #include <Servo.h>
 #include <SimplePacketComs.h>
 #include <sam.h>
-#include <FlashStorage.h>
 // Teensy 3.5 and 3.6
 #if defined(__MK64FX512__) || defined(__MK66FX1M0__)
 // NOTE you need to add -lsupc++ -lstdc++ to "append to link" compile options
