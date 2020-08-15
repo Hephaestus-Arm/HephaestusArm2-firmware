@@ -43,11 +43,11 @@ bool LewanSoulPlanner::calibrate(){
 		if(pos!=startingAngles[i]){
 			return false;
 		}
-		Serial.println("Calibrated "+String(i+1));
+		Serial.println("\r\nCalibrated "+String(i+1));
 	}
 	delay(1000);
 	read();
-	Serial.println("Starting the motor motion after calibration");
+	Serial.println("\r\nStarting the motor motion after calibration");
 	for(int i=0;i<num;i++){
 		upstream[i]->setSetpoint(motors[i]->pos_read());// quick set to current
 		//upstream[i]->startInterpolationDegrees(startingAngles[i],2000,SIN);
@@ -87,8 +87,8 @@ void LewanSoulPlanner::loop(){
 	case provisioning:
 		while(Serial.available()){
 			command[commandIndex]=Serial.read();
-			Serial.println(String((int)command[commandIndex]));
-			if(command[commandIndex]=='\r'|| command[commandIndex]==10|| command[commandIndex]==13){
+			Serial.print(command[commandIndex]);
+			if(command[commandIndex]=='\r\n'|| command[commandIndex]==10|| command[commandIndex]==13){
 				state=runProvision;
 			}
 			commandIndex++;
@@ -110,9 +110,9 @@ void LewanSoulPlanner::loop(){
 				if(commandIndex==7){
 					IDToSet=(command[5]-0x30)+(10*(command[4]-0x30))+(100*(command[3]-0x30));
 				}
-				Serial.println("Processing ID "+String(IDToSet));
+				Serial.println("\r\nProcessing ID "+String(IDToSet));
 				int read = servoBus.id_read();
-				Serial.println("Current ID was "+String(read));
+				Serial.println("\r\nCurrent ID was "+String(read));
 				int timeout =0;
 				do{
 					servoBus.setRetryCount(5);
@@ -120,19 +120,19 @@ void LewanSoulPlanner::loop(){
 					servoBus.id_write(IDToSet);
 					read=servoBus.id_read();
 					servoBus.debug(false);
-					Serial.println("Current ID is now "+String(read));
+					Serial.println("\r\nCurrent ID is now "+String(read));
 					if(read!=IDToSet){
-						Serial.println("ERROR ID set failed");
+						Serial.println("\r\nERROR ID set failed");
 						delay(500);
 					}
 					timeout++;
 				}while(( read!=IDToSet) && timeout<10);
 			}else{
-				Serial.println("Current ID "+String(servoBus.id_read()));
+				Serial.println("\r\nCurrent ID "+String(servoBus.id_read()));
 			}
 
 		}else{
-			Serial.println("Provision timeout! Format:\nID 2<NL> \n will set the one connected motor ID to 2\nwhere <NL> is the new line char" );
+			Serial.println("\r\nProvision timeout! Format:\n\r\nID 2<NL> \n\r\n will set the one connected motor ID to 2\n\r\nwhere <NL> is the new line char" );
 		}
 		commandIndex=0;
 		IDToSet=0;
@@ -146,7 +146,7 @@ void LewanSoulPlanner::loop(){
 		servoBus.debug(true);
 		servoBus.retry = 0; // enforce synchronous real time
 		//servoBus.debug(true);
-		Serial.println("Beginning Trajectory Planner");
+		Serial.println("\r\nBeginning Trajectory Planner");
 		pinMode(HOME_SWITCH_PIN, INPUT_PULLUP);
 		for(int i=0;i<num;i++)
 				motors[i]->disable();
@@ -162,7 +162,7 @@ void LewanSoulPlanner::loop(){
 		if(!digitalRead(HOME_SWITCH_PIN)){
 			timeOfHomingPressed = millis();
 			state = WaitForHomeRelease;
-			Serial.println("HOME PRESSED!");
+			Serial.println("\r\nHOME PRESSED!");
 			digitalWrite(INDICATOR, 0);
 		}else{
 			if(millis()-timeOfLastBlink>1000){
@@ -186,7 +186,7 @@ void LewanSoulPlanner::loop(){
 			if(calibrate()){
 				state =WaitingForCalibrationToFinish;
 			}else{
-				Serial.println("Cal Error");
+				Serial.println("\r\nCal Error");
 			}
 		}
 		break;
@@ -205,7 +205,7 @@ void LewanSoulPlanner::loop(){
 			if(!upstream[i]->isInterpolationDone())
 				break;// not done yet
 		}
-		Serial.println("Starting the planner");
+		Serial.println("\r\nStarting the planner");
 		state=running;
 		digitalWrite(INDICATOR, 1);
 		break;
