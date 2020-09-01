@@ -88,7 +88,7 @@ void LewanSoulPlanner::loop(){
 		while(Serial.available()){
 			command[commandIndex]=Serial.read();
 			Serial.print(command[commandIndex]);
-			if(command[commandIndex]=='\r\n'|| command[commandIndex]==10|| command[commandIndex]==13){
+			if(command[commandIndex]=='\r'|| command[commandIndex]=='\n'||command[commandIndex]==10|| command[commandIndex]==13){
 				state=runProvision;
 			}
 			commandIndex++;
@@ -110,6 +110,18 @@ void LewanSoulPlanner::loop(){
 				if(commandIndex==7){
 					IDToSet=(command[5]-0x30)+(10*(command[4]-0x30))+(100*(command[3]-0x30));
 				}
+				Serial.print("\r\nGOT hex:[ ");
+				for(int i=0;i<commandIndex;i++){
+
+					Serial.print(", 0x"+String(command[i], HEX));
+				}
+				Serial.print("]\r\n");
+				Serial.print("\r\nGOT ASCII:[ ");
+				for(int i=0;i<commandIndex;i++){
+					Serial.print(", ");
+					Serial.print(command[i]);
+				}
+				Serial.print("]\r\n");
 				Serial.println("\r\nProcessing ID "+String(IDToSet));
 				int read = servoBus.id_read();
 				Serial.println("\r\nCurrent ID was "+String(read));
