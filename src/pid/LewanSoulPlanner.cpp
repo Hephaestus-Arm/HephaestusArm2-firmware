@@ -112,13 +112,12 @@ void LewanSoulPlanner::loop(){
 				}
 				Serial.print("\r\nGOT as hex:[ ");
 				for(int i=0;i<commandIndex;i++){
-
-					Serial.print(", 0x"+String(command[i], HEX));
+					Serial.print((i!=0?" 0x":", 0x")+String(command[i], HEX));
 				}
 				Serial.print("]\r\n");
 				Serial.print("\r\nGOT as ASCII:[ ");
 				for(int i=0;i<commandIndex;i++){
-					Serial.print(", ");
+					if (i!=0)Serial.print(", ");
 					Serial.print(command[i]);
 				}
 				Serial.print("]\r\n");
