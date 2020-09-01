@@ -110,13 +110,13 @@ void LewanSoulPlanner::loop(){
 				if(commandIndex==7){
 					IDToSet=(command[5]-0x30)+(10*(command[4]-0x30))+(100*(command[3]-0x30));
 				}
-				Serial.print("\r\nGOT hex:[ ");
+				Serial.print("\r\nGOT as hex:[ ");
 				for(int i=0;i<commandIndex;i++){
 
 					Serial.print(", 0x"+String(command[i], HEX));
 				}
 				Serial.print("]\r\n");
-				Serial.print("\r\nGOT ASCII:[ ");
+				Serial.print("\r\nGOT as ASCII:[ ");
 				for(int i=0;i<commandIndex;i++){
 					Serial.print(", ");
 					Serial.print(command[i]);
