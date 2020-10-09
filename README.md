@@ -1,5 +1,9 @@
 # Hephaestus Arm Firmware
 
-[Install arduino for your platform with the ESP32 toolchain set up](https://github.com/WPIRoboticsEngineering/RobotInterfaceBoard/blob/master/InstallEclipse.md)
+ [Sloeber Eclipse install instructions](https://github.com/WPIRoboticsEngineering/RobotInterfaceBoard/blob/master/InstallEclipse.md)
+
+ [Instructions to Open Projects in Eclipse](https://github.com/WPIRoboticsEngineering/RobotInterfaceBoard/blob/master/UseEclipse.md)
+ 
+ use this toolchain:
 
 <img src="toolchainConf.png" width="300">
