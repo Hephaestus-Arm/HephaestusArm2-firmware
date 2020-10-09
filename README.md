@@ -6,4 +6,4 @@
  
  use this toolchain:
 
-<img src="toolchainConf.png" width="300">
+<img src="toolchainConf.png" width="600">
