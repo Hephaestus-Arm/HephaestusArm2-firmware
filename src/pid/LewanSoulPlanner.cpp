@@ -39,11 +39,12 @@ bool LewanSoulPlanner::calibrate(){
 	for(int i=0;i<num;i++){
 
 		motors[i]->calibrate(startingAngles[i],lowerAngles[i],upperAngles[i]);
-		int32_t pos = motors[i]->pos_read();
-		if(pos!=startingAngles[i]){
+		int32_t pos = startingAngles[i]-motors[i]->pos_read();
+		if(pos!=0){
+			Serial.println("Settling Error of"+String(pos)+", re-calibrating on index "+String(motors[i]->_id));
 			return false;
 		}
-		Serial.println("\r\nCalibrated "+String(i+1));
+		Serial.println("\r\nCalibrated "+String(motors[i]->_id));
 	}
 	delay(1000);
 	read();
