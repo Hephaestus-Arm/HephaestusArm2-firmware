@@ -37,6 +37,10 @@
 #define LEWAN_SERIAL_PORT &Serial1
 
 #define HOME_SWITCH_PIN 11
+
+#define MOTOR_DISABLE 10
+
+
 #else
 #error "NO coms layer supported!"
 #endif

@@ -160,6 +160,7 @@ void LewanSoulPlanner::loop(){
 		//servoBus.debug(true);
 		Serial.println("\r\nBeginning Trajectory Planner");
 		pinMode(HOME_SWITCH_PIN, INPUT_PULLUP);
+		pinMode(MOTOR_DISABLE, INPUT_PULLUP);
 		for(int i=0;i<num;i++)
 				motors[i]->disable();
 		state=WaitForHomePress;
@@ -228,7 +229,7 @@ void LewanSoulPlanner::loop(){
 		}
 		break;
 	case running:
-		if(digitalRead(HOME_SWITCH_PIN)){
+		if(digitalRead(MOTOR_DISABLE)){
 			update();
 			state=WaitingToRun;
 		}else{
@@ -239,7 +240,7 @@ void LewanSoulPlanner::loop(){
 		break;
 	case disabled:
 		read();
-		if(digitalRead(HOME_SWITCH_PIN)){
+		if(digitalRead(MOTOR_DISABLE)){
 			state=running;
 		}
 		break;
