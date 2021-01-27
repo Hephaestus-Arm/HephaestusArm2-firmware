@@ -175,7 +175,7 @@ void LewanSoulPlanner::loop(){
 		if(!digitalRead(HOME_SWITCH_PIN)){
 			timeOfHomingPressed = millis();
 			state = WaitForHomeRelease;
-			Serial.println("\r\nHOME PRESSED!");
+			Serial.println("\r\nUSER Button PRESSED!");
 			digitalWrite(INDICATOR, 0);
 		}else{
 			if(millis()-timeOfLastBlink>1000){
@@ -193,7 +193,7 @@ void LewanSoulPlanner::loop(){
 			blinkState=!blinkState;
 			digitalWrite(INDICATOR, blinkState?1:0);
 		}
-		if(millis()-timeOfHomingPressed>500 && !digitalRead(HOME_SWITCH_PIN)){// wait for motors to settle, debounce
+		if(millis()-timeOfHomingPressed>300 && !digitalRead(HOME_SWITCH_PIN)){// wait for motors to settle, debounce
 			timeOfHomingPressed = millis();
 			digitalWrite(INDICATOR, 0);
 			if(calibrate()){
