@@ -141,7 +141,11 @@ void LewanSoulPlanner::loop(){
 					timeout++;
 				}while(( read!=IDToSet) && timeout<10);
 			}else{
-				Serial.println("\r\nCurrent ID "+String(servoBus.id_read()));
+				int read = servoBus.id_read();
+				if(read!=0)
+				Serial.println("\r\nCurrent ID "+String(read));
+				else
+					Serial.println("\r\nFAULT motor not responding ");
 			}
 
 		}else{
