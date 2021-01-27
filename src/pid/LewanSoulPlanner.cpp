@@ -143,7 +143,7 @@ void LewanSoulPlanner::loop(){
 			}else{
 				int read = servoBus.id_read();
 				if(read!=0)
-				Serial.println("\r\nCurrent ID "+String(read));
+					Serial.println("\r\nCurrent ID "+String(read));
 				else
 					Serial.println("\r\nFAULT motor not responding ");
 			}
