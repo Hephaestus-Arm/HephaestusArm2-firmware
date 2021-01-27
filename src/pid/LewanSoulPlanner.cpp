@@ -132,10 +132,11 @@ void LewanSoulPlanner::loop(){
 					servoBus.id_write(IDToSet);
 					read=servoBus.id_read();
 					servoBus.debug(false);
-					Serial.println("\r\nCurrent ID is now "+String(read));
-					if(read!=IDToSet){
+					if(read!=IDToSet || read==0){
 						Serial.println("\r\nERROR ID set failed");
 						delay(500);
+					}else{
+						Serial.println("\r\nCurrent ID is now "+String(read));
 					}
 					timeout++;
 				}while(( read!=IDToSet) && timeout<10);
