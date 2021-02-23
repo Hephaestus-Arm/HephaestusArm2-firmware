@@ -71,10 +71,12 @@ void LewanSoulPlanner::update(){
 	for(int i=0;i<num;i++){
 		int32_t target = upstream[i]->getSetPoint();
 		if(target>motors[i]->getMaxCentDegrees()){
+			Serial.println("Capping upper setpoint "+String(target)+" to "+String(motors[i]->getMaxCentDegrees()));
 			target=motors[i]->getMaxCentDegrees();
 			upstream[i]->setSetpoint(target);
 		}
 		if(target<motors[i]->getMinCentDegrees()){
+			Serial.println("Capping lower setpoint "+String(target)+" to "+String(motors[i]->getMinCentDegrees()));
 			target=motors[i]->getMinCentDegrees();
 			upstream[i]->setSetpoint(target);
 		}
