@@ -194,7 +194,7 @@ void LewanSoulPlanner::loop(){
 		}
 		break;
 	case WaitForHomeRelease:
-		//read();
+		read();
 		if(millis()-timeOfLastBlink>200){
 			timeOfLastBlink=millis();
 			blinkState=!blinkState;
@@ -249,7 +249,10 @@ void LewanSoulPlanner::loop(){
 		read();
 		if(digitalRead(MOTOR_DISABLE)){
 			state=running;
-		}
+		}else
+			if(!digitalRead(HOME_SWITCH_PIN)){
+				state=WaitForHomePress;
+			}
 		break;
 	}
 }
