@@ -37,7 +37,7 @@ LewanSoulPlanner::~LewanSoulPlanner() {
 }
 bool LewanSoulPlanner::calibrate(){
 	for(int i=0;i<num;i++){
-
+		Serial.println("Attempt Calibrating "+String(motors[i]->_id)+"...");
 		if(!motors[i]->calibrate(startingAngles[i],lowerAngles[i],upperAngles[i])){
 			return false;
 		}
@@ -46,7 +46,7 @@ bool LewanSoulPlanner::calibrate(){
 			Serial.println("Settling Error of"+String(pos)+", re-calibrating on index "+String(motors[i]->_id));
 			return false;
 		}
-		Serial.println("\r\nCalibrated "+String(motors[i]->_id));
+		Serial.println("Done Calibrating "+String(motors[i]->_id)+" OK!\r\n");
 	}
 	delay(1000);
 	read();
@@ -104,7 +104,7 @@ void LewanSoulPlanner::loop(){
 		}
 		break;
 	case runProvision:
-		if(command[0]=='I' && command[1]=='D'){
+		if((command[0]=='I'||command[0]=='i') && (command[1]=='D'||command[1]=='d')){
 			if( command[2]==' '){
 				if(commandIndex==5){
 					IDToSet=command[3]-0x30;
