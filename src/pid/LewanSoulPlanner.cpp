@@ -38,7 +38,9 @@ LewanSoulPlanner::~LewanSoulPlanner() {
 bool LewanSoulPlanner::calibrate(){
 	for(int i=0;i<num;i++){
 
-		motors[i]->calibrate(startingAngles[i],lowerAngles[i],upperAngles[i]);
+		if(!motors[i]->calibrate(startingAngles[i],lowerAngles[i],upperAngles[i])){
+			return false;
+		}
 		int32_t pos = startingAngles[i]-motors[i]->pos_read();
 		if(pos!=0){
 			Serial.println("Settling Error of"+String(pos)+", re-calibrating on index "+String(motors[i]->_id));
