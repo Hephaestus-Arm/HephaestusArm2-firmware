@@ -245,12 +245,14 @@ void LewanSoulPlanner::loop(){
 			for(int i=0;i<num;i++)
 				motors[i]->disable();
 			state=disabled;
+			Serial.println("\r\nDisable Motors");
 		}
 		break;
 	case disabled:
 		read();
 		if(digitalRead(MOTOR_DISABLE)){
 			state=running;
+			Serial.println("\r\nEnable Motors");
 		}else
 			if(!digitalRead(HOME_SWITCH_PIN)){
 				state=WaitForHomePress;
