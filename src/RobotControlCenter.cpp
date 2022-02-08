@@ -63,6 +63,7 @@ void RobotControlCenter::setup() {
 	planner = new LewanSoulPlanner(numberOfPID, (SerialMotor **)pidList);
 
 	// Attach coms
+	coms->attach(new LightServer());
 	coms->attach(new SetPIDSetpoint(numberOfPID, pidList)); // @suppress("Method cannot be resolved")  @suppress("Invalid arguments")
 	coms->attach(new SetPIDConstants(numberOfPID, pidList)); // @suppress("Method cannot be resolved")  @suppress("Invalid arguments")
 	coms->attach(new GetPIDData(numberOfPID, pidList)); // @suppress("Method cannot be resolved")  @suppress("Invalid arguments")
@@ -73,6 +74,7 @@ void RobotControlCenter::setup() {
 	coms->attach(new SetPIDVelocity(numberOfPID, pidList));// @suppress("Invalid arguments")
 	coms->attach(new SetPDVelocityConstants(numberOfPID, pidList));//  @suppress("Invalid arguments")
 	coms->attach(new ServoServer());
+
 
 }
 

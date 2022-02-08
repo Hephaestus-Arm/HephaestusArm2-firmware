@@ -19,6 +19,7 @@
  * Gripper pin for Servo
  */
 #define SERVO_PIN 23
+#define AUX_PIN 24
 
 #define HOME_SWITCH_PIN 32
 
@@ -30,6 +31,7 @@
  * Gripper pin for Servo
  */
 #define SERVO_PIN 12
+#define AUX_PIN 13
 
 #define TX_LEWAN_SOUL PIN_SERIAL1_TX
 #define LEWAN_TX_ENABLE_PIN 9
